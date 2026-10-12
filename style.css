@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;750;800&display=swap');
+
 :root {
-    --bg-color: #f4f7f6;
+    --bg-color: #fce7f3; /* Soft pink kawaii background */
     --card-bg: #ffffff;
-    --primary: #4f46e5;
-    --primary-hover: #4338ca;
+    --primary: #ff5722; /* Semangat / Oranye ala festival/torii */
+    --primary-hover: #f4511e;
+    --secondary-color: #3b82f6; /* Biru ceria */
     --text-color: #1f2937;
     --success: #10b981;
     --error: #ef4444;
@@ -12,11 +15,11 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Quicksand', sans-serif, sans-serif;
 }
 
 body {
-    background-color: var(--bg-color);
+    background: linear-gradient(135deg, #fbcfe8 0%, #fed7aa 100%);
     color: var(--text-color);
     display: flex;
     justify-content: center;
@@ -28,10 +31,11 @@ body {
 .container {
     background: var(--card-bg);
     width: 100%;
-    max-width: 550px;
+    max-width: 500px;
     padding: 30px;
-    border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    border-radius: 24px;
+    box-shadow: 0 15px 35px rgba(244, 63, 94, 0.15);
+    border: 4px solid #ffffff;
 }
 
 .screen {
@@ -40,26 +44,34 @@ body {
 
 .screen.active {
     display: block;
+    animation: popIn 0.3s ease-out forwards;
+}
+
+@keyframes popIn {
+    0% { transform: scale(0.95); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
 }
 
 h1 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
+    font-size: 1.7rem;
+    margin-bottom: 8px;
     text-align: center;
+    color: #db2777;
+    font-weight: 800;
 }
 
 p {
     font-size: 0.95rem;
-    color: #6b7280;
+    color: #4b5563;
     text-align: center;
     margin-bottom: 20px;
 }
 
-/* Checkbox Grid Selection */
+/* Checkbox Grid Selection ala Game */
 .select-controls {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 }
 
 .grid-checkboxes {
@@ -68,10 +80,11 @@ p {
     gap: 8px;
     max-height: 220px;
     overflow-y: auto;
-    margin-bottom: 25px;
-    padding: 5px;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 8px;
+    background: #fdf2f8;
+    border: 2px dashed #f472b6;
+    border-radius: 14px;
 }
 
 .checkbox-item {
@@ -79,59 +92,78 @@ p {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 8px;
-    background: #f9fafb;
-    border: 1px solid #e5e7eb;
-    border-radius: 6px;
+    padding: 8px 4px;
+    background: #ffffff;
+    border: 2px solid #fbcfe8;
+    border-radius: 10px;
     cursor: pointer;
-    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.checkbox-item:hover {
+    transform: translateY(-2px);
+    border-color: #db2777;
+    background: #fff1f2;
 }
 
 .checkbox-item input {
-    margin-bottom: 4px;
+    accent-color: #db2777;
+    margin-bottom: 2px;
 }
 
 .checkbox-item span {
-    font-size: 1.1rem;
-    font-weight: bold;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #1f2937;
 }
 
-/* Buttons */
+.checkbox-item small {
+    font-size: 0.75rem;
+    color: #9ca3af;
+}
+
+/* Buttons Fun & Bubbly */
 button {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
+    border-radius: 14px;
+    font-size: 1.05rem;
+    font-weight: 700;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: transform 0.1s, background 0.2s;
+}
+
+button:active {
+    transform: scale(0.97);
 }
 
 .btn-primary {
-    background-color: var(--primary);
+    background: linear-gradient(135deg, #f43f5e 0%, #fb7185 100%);
     color: white;
+    box-shadow: 0 6px 20px rgba(244, 63, 94, 0.35);
 }
 
 .btn-primary:hover {
-    background-color: var(--primary-hover);
+    background: linear-gradient(135deg, #e11d48 0%, #f43f5e 100%);
 }
 
 .btn-secondary {
-    background-color: #e5e7eb;
-    color: #374151;
+    background-color: #f1f5f9;
+    color: #475569;
     width: auto;
-    padding: 8px 12px;
+    padding: 8px 14px;
     font-size: 0.85rem;
+    border-radius: 10px;
 }
 
 .btn-secondary:hover {
-    background-color: #d1d5db;
+    background-color: #e2e8f0;
 }
 
 .btn-text {
     background: none;
-    color: var(--error);
+    color: #ef4444;
     width: auto;
     padding: 0;
     font-size: 0.9rem;
@@ -142,90 +174,101 @@ button {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
-    font-weight: 600;
+    margin-bottom: 15px;
+    font-weight: 700;
+    color: #64748b;
 }
 
 .card {
-    background: #f9fafb;
-    border: 2px solid #e5e7eb;
-    border-radius: 12px;
-    height: 180px;
+    background: #fffbeb;
+    border: 3px solid #fde047;
+    border-radius: 20px;
+    height: 190px;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 20px;
-    transition: border-color 0.2s, background-color 0.2s;
+    box-shadow: inset 0 -6px 0 rgba(253, 224, 71, 0.4);
+    transition: all 0.2s;
 }
 
 #hiragana-target {
-    font-size: 5rem;
+    font-size: 6rem;
+    color: #b45309;
+    text-shadow: 2px 2px 0px #fef08a;
 }
 
 .input-group {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
 }
 
 #user-input {
     width: 100%;
-    padding: 14px;
-    font-size: 1.2rem;
-    border: 2px solid #d1d5db;
-    border-radius: 8px;
+    padding: 16px;
+    font-size: 1.4rem;
+    border: 3px solid #cbd5e1;
+    border-radius: 14px;
     text-align: center;
     outline: none;
-    transition: border-color 0.2s;
+    background: #f8fafc;
+    font-weight: 700;
+    transition: all 0.2s;
 }
 
 #user-input:focus {
-    border-color: var(--primary);
+    border-color: #f43f5e;
+    background: #ffffff;
+    box-shadow: 0 0 10px rgba(244, 63, 94, 0.2);
 }
 
 /* Feedback Animations / States */
 .card.correct-flash {
-    border-color: var(--success);
-    background-color: rgba(16, 185, 129, 0.1);
+    border-color: #10b981;
+    background-color: #ecfdf5;
+    box-shadow: inset 0 -6px 0 rgba(16, 185, 129, 0.3);
 }
 
 .card.wrong-flash {
-    border-color: var(--error);
-    background-color: rgba(239, 68, 68, 0.1);
-    animation: shake 0.3s;
+    border-color: #ef4444;
+    background-color: #fef2f2;
+    box-shadow: inset 0 -6px 0 rgba(239, 68, 68, 0.3);
+    animation: shake 0.3s ease-in-out;
 }
 
 @keyframes shake {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-6px); }
-    50% { transform: translateX(6px); }
-    75% { transform: translateX(-6px); }
-    100% { transform: translateX(0); }
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
 }
 
 #feedback-msg {
     text-align: center;
-    font-weight: 600;
+    font-weight: 700;
     height: 24px;
-    font-size: 0.9rem;
+    font-size: 1rem;
 }
 
 /* Result Screen */
 .result-stats {
     text-align: center;
     margin-bottom: 20px;
-    font-size: 1.1rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #334155;
 }
 
 .mistake-box {
-    background: #f9fafb;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    padding: 12px;
-    max-height: 150px;
+    background: #fef2f2;
+    border: 2px solid #fecaca;
+    border-radius: 14px;
+    padding: 14px;
+    max-height: 160px;
     overflow-y: auto;
     margin-bottom: 20px;
     font-size: 0.9rem;
+    color: #991b1b;
 }
 
 #restart-btn {
