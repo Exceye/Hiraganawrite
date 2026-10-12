@@ -301,19 +301,29 @@ button {
     width: 100%;
     padding: 14px;
     font-size: 1.3rem;
-    border: 3px solid #cbd5e1;
+    border: 3px solid rgba(255, 255, 255, 0.6);
     border-radius: 16px;
     text-align: center;
     outline: none;
-    background: #f8fafc;
+    /* Efek transparan (Glassmorphism) yang halus dan tidak pusing */
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    color: #ffffff; /* Teks ketikan jadi putih agar kontras */
     font-weight: 700;
+    transition: all 0.2s;
+}
+
+#user-input::placeholder {
+    color: rgba(255, 255, 255, 0.7); /* Placeholder warna putih transparan */
 }
 
 #user-input:focus {
-    border-color: #f43f5e;
-    background: #ffffff;
-    box-shadow: 0 0 12px rgba(244, 63, 94, 0.25);
+    border-color: #fde047;
+    background: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 0 15px rgba(253, 224, 71, 0.4);
 }
+
 
 .card.correct-flash {
     border-color: #10b981;
