@@ -3,33 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Latihan Hiragana 50 Soal</title>
+    <title>Hiragana Quest! ✨</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <!-- Maskot / Dekorasi Background -->
+    <div class="sakura-bg"></div>
+
     <div class="container">
-        <!-- HALAMAN 1: PILIH HIRAGANA -->
-        <div id="selection-screen" class="screen active">
-            <h1>Pilih Hiragana untuk Latihan</h1>
-            <p>Pilih karakter yang ingin kamu hafalkan (bisa dicicil bertahap):</p>
-            
-            <div class="select-controls">
-                <button id="select-all" class="btn-secondary">Pilih Semua</button>
-                <button id="deselect-all" class="btn-secondary">Batalkan Semua</button>
+        
+        <!-- MASCOT HEADER (Hadir di setiap screen biar gak sepi) -->
+        <div class="mascot-header">
+            <div class="mascot-avatar">
+                <!-- SVG Chibi Mascot Lucu -->
+                <svg viewBox="0 0 100 100" width="60" height="60">
+                    <circle cx="50" cy="50" r="45" fill="#fbcfe8" stroke="#db2777" stroke-width="4"/>
+                    <circle cx="35" cy="45" r="6" fill="#1f2937"/>
+                    <circle cx="65" cy="45" r="6" fill="#1f2937"/>
+                    <path d="M 40 60 Q 50 70 60 60" stroke="#db2777" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    <ellipse cx="25" cy="52" rx="6" ry="4" fill="#fda4af" opacity="0.6"/>
+                    <ellipse cx="75" cy="52" rx="6" ry="4" fill="#fda4af" opacity="0.6"/>
+                    <path d="M 30 20 Q 50 5 70 20" stroke="#db2777" stroke-width="4" fill="none" stroke-linecap="round"/>
+                </svg>
             </div>
-
-            <div id="hiragana-checkboxes" class="grid-checkboxes">
-                <!-- Checkbox akan di-generate otomatis via JavaScript -->
+            <div class="mascot-speech" id="speech-bubble">
+                "Konnichiwa! Ayo kita hafal Hiragana hari ini!" 🌸
             </div>
-
-            <button id="start-btn" class="btn-primary">Mulai Latihan (50 Soal)</button>
         </div>
 
-        <!-- HALAMAN 2: LAYAR LATIHAN -->
+        <!-- HALAMAN 1: PILIH HIRAGANA -->
+        <div id="selection-screen" class="screen active">
+            <h1>🌸 Hiragana Quest 🌸</h1>
+            <p>Pilih karakter yang mau kamu latih. Bisa dicicil biar gak pusing!</p>
+            
+            <div class="select-controls">
+                <button id="select-all" class="btn-secondary">✨ Pilih Semua</button>
+                <button id="deselect-all" class="btn-secondary">❌ Batalkan</button>
+            </div>
+
+            <div id="hiragana-checkboxes" class="grid-checkboxes"></div>
+
+            <button id="start-btn" class="btn-primary">🎮 MULAI PETUALANGAN (50 SOAL)</button>
+        </div>
+
+        <!-- HALAMAN 2: LAYAR KUIS (DITAMBAH LIVE SCORE) -->
         <div id="quiz-screen" class="screen">
-            <div class="quiz-header">
+            <div class="quiz-top-bar">
                 <span id="progress-text">Soal 1 / 50</span>
+                <!-- LIVE SCORE COUNTER -->
+                <div class="live-score-board">
+                    <span class="score-badge correct">Benar: <strong id="live-correct">0</strong></span>
+                    <span class="score-badge wrong">Salah: <strong id="live-wrong">0</strong></span>
+                </div>
                 <button id="quit-btn" class="btn-text">Keluar</button>
             </div>
 
@@ -45,22 +71,19 @@
 
         <!-- HALAMAN 3: REKAP AKHIR -->
         <div id="result-screen" class="screen">
-            <h1>Latihan Selesai! 🎉</h1>
+            <h1>🎉 Sugoi! Latihan Selesai! 🎉</h1>
             <div class="result-stats">
-                <p>Skor Benar: <span id="score-correct">0</span> / 50</p>
-                <p>Akurasi: <span id="score-accuracy">0%</span></p>
+                <p>Skor Akhir Benar: <span id="score-correct">0</span> / 50</p>
+                <p>Akurasi Total: <span id="score-accuracy">0%</span></p>
             </div>
             
-            <div id="mistake-container" class="mistake-box">
-                <!-- Daftar salah akan muncul di sini -->
-            </div>
+            <div id="mistake-container" class="mistake-box"></div>
 
-            <button id="restart-btn" class="btn-primary">Lagi dengan Huruf Sama</button>
-            <button id="menu-btn" class="btn-secondary">Ganti Pilihan Huruf</button>
+            <button id="restart-btn" class="btn-primary">🔄 Main Lagi (Soal Sama)</button>
+            <button id="menu-btn" class="btn-secondary">🏠 Pilih Huruf Lain</button>
         </div>
     </div>
 
-    <!-- Audio untuk Benar & Salah (Menggunakan Web Audio API / Suara Bawaan JS sederhana) -->
     <script src="script.js"></script>
 </body>
 </html>
