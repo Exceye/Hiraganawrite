@@ -8,34 +8,43 @@
 </head>
 <body>
 
-    <!-- Maskot / Dekorasi Background -->
-    <div class="sakura-bg"></div>
+    <!-- Background Animasi Sakura Jatuh -->
+    <div class="sakura-container" id="sakura-container"></div>
 
     <div class="container">
         
-        <!-- MASCOT HEADER (Hadir di setiap screen biar gak sepi) -->
+        <!-- MASCOT SECTION -->
         <div class="mascot-header">
             <div class="mascot-avatar">
-                <!-- SVG Chibi Mascot Lucu -->
-                <svg viewBox="0 0 100 100" width="60" height="60">
-                    <circle cx="50" cy="50" r="45" fill="#fbcfe8" stroke="#db2777" stroke-width="4"/>
-                    <circle cx="35" cy="45" r="6" fill="#1f2937"/>
-                    <circle cx="65" cy="45" r="6" fill="#1f2937"/>
-                    <path d="M 40 60 Q 50 70 60 60" stroke="#db2777" stroke-width="4" fill="none" stroke-linecap="round"/>
-                    <ellipse cx="25" cy="52" rx="6" ry="4" fill="#fda4af" opacity="0.6"/>
-                    <ellipse cx="75" cy="52" rx="6" ry="4" fill="#fda4af" opacity="0.6"/>
-                    <path d="M 30 20 Q 50 5 70 20" stroke="#db2777" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <!-- Maskot Anime Chibi Gaya Baru -->
+                <svg viewBox="0 0 120 120" width="70" height="70">
+                    <!-- Rambut Belakang -->
+                    <circle cx="60" cy="65" r="45" fill="#f43f5e"/>
+                    <!-- Wajah -->
+                    <circle cx="60" cy="65" r="38" fill="#ffedd5"/>
+                    <!-- Mata Anime -->
+                    <ellipse cx="48" cy="60" rx="6" ry="8" fill="#1f2937"/>
+                    <ellipse cx="72" cy="60" rx="6" ry="8" fill="#1f2937"/>
+                    <circle cx="46" cy="57" r="2" fill="#ffffff"/>
+                    <circle cx="70" cy="57" r="2" fill="#ffffff"/>
+                    <!-- Blush (Pipi Merah) -->
+                    <ellipse cx="40" cy="68" rx="5" ry="3" fill="#fda4af" opacity="0.8"/>
+                    <ellipse cx="80" cy="68" rx="5" ry="3" fill="#fda4af" opacity="0.8"/>
+                    <!-- Mulut Senyum -->
+                    <path d="M 55 74 Q 60 80 65 74" stroke="#db2777" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    <!-- Poni Rambut Anime -->
+                    <path d="M 30 50 Q 50 35 60 50 Q 70 35 90 50 Q 75 30 60 30 Q 45 30 30 50 Z" fill="#e11d48"/>
                 </svg>
             </div>
             <div class="mascot-speech" id="speech-bubble">
-                "Konnichiwa! Ayo kita hafal Hiragana hari ini!" 🌸
+                "Konnichiwa! Siap Taklukkan Hiragana Hari Ini? 🌸"
             </div>
         </div>
 
         <!-- HALAMAN 1: PILIH HIRAGANA -->
         <div id="selection-screen" class="screen active">
-            <h1>🌸 Hiragana Quest 🌸</h1>
-            <p>Pilih karakter yang mau kamu latih. Bisa dicicil biar gak pusing!</p>
+            <h1>🌸 HIRAGANA QUEST 🌸</h1>
+            <p>Pilih karakter yang mau kamu latih. Ayo mulai berpetualang!</p>
             
             <div class="select-controls">
                 <button id="select-all" class="btn-secondary">✨ Pilih Semua</button>
@@ -44,14 +53,13 @@
 
             <div id="hiragana-checkboxes" class="grid-checkboxes"></div>
 
-            <button id="start-btn" class="btn-primary">🎮 MULAI PETUALANGAN (50 SOAL)</button>
+            <button id="start-btn" class="btn-primary">🎮 MULAI LATIHAN (50 SOAL)</button>
         </div>
 
-        <!-- HALAMAN 2: LAYAR KUIS (DITAMBAH LIVE SCORE) -->
+        <!-- HALAMAN 2: KUIS & LIVE SCORE -->
         <div id="quiz-screen" class="screen">
             <div class="quiz-top-bar">
                 <span id="progress-text">Soal 1 / 50</span>
-                <!-- LIVE SCORE COUNTER -->
                 <div class="live-score-board">
                     <span class="score-badge correct">Benar: <strong id="live-correct">0</strong></span>
                     <span class="score-badge wrong">Salah: <strong id="live-wrong">0</strong></span>
@@ -69,11 +77,12 @@
             </div>
         </div>
 
-        <!-- HALAMAN 3: REKAP AKHIR -->
+        <!-- HALAMAN 3: HASIL & KEMBANG API -->
         <div id="result-screen" class="screen">
+            <div id="fireworks-container"></div>
             <h1>🎉 Sugoi! Latihan Selesai! 🎉</h1>
             <div class="result-stats">
-                <p>Skor Akhir Benar: <span id="score-correct">0</span> / 50</p>
+                <p>Skor Benar: <span id="score-correct">0</span> / 50</p>
                 <p>Akurasi Total: <span id="score-accuracy">0%</span></p>
             </div>
             
