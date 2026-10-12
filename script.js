@@ -15,7 +15,7 @@ let selectedList = [];
 let quizSession = [];
 let currentIndex = 0;
 let correctCount = 0;
-let wrongCount = 0; // Tambahan hitung salah live
+let wrongCount = 0;
 let mistakeLog = {};
 
 const selectionScreen = document.getElementById('selection-screen');
@@ -39,6 +39,52 @@ const scoreCorrect = document.getElementById('score-correct');
 const scoreAccuracy = document.getElementById('score-accuracy');
 const mistakeContainer = document.getElementById('mistake-container');
 const speechBubble = document.getElementById('speech-bubble');
+const sakuraContainer = document.getElementById('sakura-container');
+const fireworksContainer = document.getElementById('fireworks-container');
+
+// Generate Efek Sakura Jatuh Otomatis
+function createSakura() {
+    const petal = document.createElement('div');
+    petal.className = 'sakura-petal';
+    petal.style.left = Math.random() * 100 + 'vw';
+    petal.style.top = '-20px';
+    const size = Math.random() * 8 + 6;
+    petal.style.width = size + 'px';
+    petal.style.height = size * 1.4 + 'px';
+    petal.style.animationDuration = (Math.random() * 5 + 4) + 's';
+    petal.style.animationDelay = (Math.random() * 5) + 's';
+    sakuraContainer.appendChild(petal);
+
+    setTimeout(() => {
+        petal.remove();
+    }, 9000);
+}
+setInterval(createSakura, 350);
+
+// Efek Kembang Api di Layar Hasil
+function launchFireworks() {
+    fireworksContainer.innerHTML = '';
+    const colors = ['#f43f5e', '#fde047', '#38bdf8', '#10b981', '#fb7185'];
+    
+    for (let i = 0; i < 30; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'firework-particle';
+        particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        particle.style.left = '50%';
+        particle.style.top = '50%';
+        
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 120 + 40;
+        const dx = Math.cos(angle) * speed;
+        const dy = Math.sin(angle) * speed;
+        
+        particle.style.setProperty('--dx', dx + 'px');
+        particle.style.setProperty('--dy', dy + 'px');
+        
+        fireworksContainer.appendChild(particle);
+        setTimeout(() => particle.remove(), 800);
+    }
+}
 
 function initCheckboxes() {
     checkboxContainer.innerHTML = '';
@@ -144,7 +190,7 @@ userInput.addEventListener('keydown', (e) => {
 
         if (userAns === currentData.romaji) {
             correctCount++;
-            liveCorrect.innerText = correctCount;
+            liveCorrect.innerText = correctCount; // Update live benar
             playSound('correct');
             cardContainer.classList.add('correct-flash');
             feedbackMsg.style.color = 'var(--success)';
@@ -152,12 +198,12 @@ userInput.addEventListener('keydown', (e) => {
             speechBubble.innerText = "Hebat! Pertahankan! 💪";
         } else {
             wrongCount++;
-            liveWrong.innerText = wrongCount;
+            liveWrong.innerText = wrongCount; // Update live salah
             playSound('wrong');
             cardContainer.classList.add('wrong-flash');
             feedbackMsg.style.color = 'var(--error)';
-            feedbackMsg.innerText = `Oishii eh salah, yang benar: ${currentData.romaji}`;
-            speechBubble.innerText = `Ah, kurang tepat! Jawabannya "${currentData.romaji}"`;
+            feedbackMsg.innerText = `Kurang tepat, yang benar: ${currentData.romaji}`;
+            speechBubble.innerText = `Oops, jawabannya "${currentData.romaji}" ya!`;
             
             if (!mistakeLog[currentData.char]) {
                 mistakeLog[currentData.char] = { romaji: currentData.romaji, count: 0 };
@@ -181,6 +227,10 @@ function showResult() {
     const accuracy = Math.round((correctCount / 50) * 100);
     scoreAccuracy.innerText = `${accuracy}%`;
     speechBubble.innerText = `Selesai! Akurasi kamu ${accuracy}%. Keren! 🎉`;
+    
+    // Jalankan Kembang Api
+    launchFireworks();
+    setInterval(launchFireworks, 1200);
 
     mistakeContainer.innerHTML = '<strong>📝 Evaluasi Huruf yang Perlu Diingat:</strong><br>';
     const mistakesKeys = Object.keys(mistakeLog);
