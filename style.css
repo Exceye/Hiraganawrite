@@ -1,11 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;750;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap');
 
 :root {
-    --bg-color: #fce7f3; /* Soft pink kawaii background */
+    --bg-gradient: linear-gradient(135deg, #fbcfe8 0%, #fed7aa 50%, #bae6fd 100%);
     --card-bg: #ffffff;
-    --primary: #ff5722; /* Semangat / Oranye ala festival/torii */
-    --primary-hover: #f4511e;
-    --secondary-color: #3b82f6; /* Biru ceria */
+    --primary: #f43f5e;
+    --primary-hover: #e11d48;
     --text-color: #1f2937;
     --success: #10b981;
     --error: #ef4444;
@@ -15,11 +14,12 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Quicksand', sans-serif, sans-serif;
+    font-family: 'Fredoka', sans-serif;
 }
 
 body {
-    background: linear-gradient(135deg, #fbcfe8 0%, #fed7aa 100%);
+    background: var(--bg-gradient);
+    background-attachment: fixed;
     color: var(--text-color);
     display: flex;
     justify-content: center;
@@ -31,11 +31,46 @@ body {
 .container {
     background: var(--card-bg);
     width: 100%;
-    max-width: 500px;
-    padding: 30px;
-    border-radius: 24px;
-    box-shadow: 0 15px 35px rgba(244, 63, 94, 0.15);
-    border: 4px solid #ffffff;
+    max-width: 520px;
+    padding: 25px;
+    border-radius: 28px;
+    box-shadow: 0 20px 40px rgba(244, 63, 94, 0.2);
+    border: 5px solid #ffffff;
+    position: relative;
+}
+
+/* Mascot Section Styles */
+.mascot-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #fdf2f8;
+    padding: 10px 14px;
+    border-radius: 18px;
+    border: 2px dashed #f472b6;
+    margin-bottom: 20px;
+}
+
+.mascot-avatar {
+    flex-shrink: 0;
+    animation: bounceMascot 2s infinite ease-in-out;
+}
+
+@keyframes bounceMascot {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+}
+
+.mascot-speech {
+    font-size: 0.9rem;
+    color: #be185d;
+    font-weight: 600;
+    background: #ffffff;
+    padding: 8px 12px;
+    border-radius: 12px;
+    border: 1px solid #fbcfe8;
+    width: 100%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
 }
 
 .screen {
@@ -44,47 +79,48 @@ body {
 
 .screen.active {
     display: block;
-    animation: popIn 0.3s ease-out forwards;
+    animation: popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
 @keyframes popIn {
-    0% { transform: scale(0.95); opacity: 0; }
+    0% { transform: scale(0.9); opacity: 0; }
     100% { transform: scale(1); opacity: 1; }
 }
 
 h1 {
-    font-size: 1.7rem;
-    margin-bottom: 8px;
+    font-size: 1.6rem;
+    margin-bottom: 6px;
     text-align: center;
     color: #db2777;
-    font-weight: 800;
+    font-weight: 700;
+    letter-spacing: 0.5px;
 }
 
 p {
-    font-size: 0.95rem;
-    color: #4b5563;
+    font-size: 0.9rem;
+    color: #6b7280;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
 }
 
-/* Checkbox Grid Selection ala Game */
+/* Checkbox Grid Selection */
 .select-controls {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 
 .grid-checkboxes {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 8px;
-    max-height: 220px;
+    max-height: 200px;
     overflow-y: auto;
     margin-bottom: 20px;
     padding: 8px;
-    background: #fdf2f8;
-    border: 2px dashed #f472b6;
-    border-radius: 14px;
+    background: #fff1f2;
+    border: 3px solid #fbcfe8;
+    border-radius: 16px;
 }
 
 .checkbox-item {
@@ -92,42 +128,44 @@ p {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 8px 4px;
+    padding: 6px 4px;
     background: #ffffff;
-    border: 2px solid #fbcfe8;
-    border-radius: 10px;
+    border: 2px solid #fdf2f8;
+    border-radius: 12px;
     cursor: pointer;
     transition: all 0.2s;
+    box-shadow: 0 3px 0 #fbcfe8;
 }
 
 .checkbox-item:hover {
     transform: translateY(-2px);
-    border-color: #db2777;
-    background: #fff1f2;
+    border-color: #f43f5e;
+    background: #fff5f5;
 }
 
 .checkbox-item input {
-    accent-color: #db2777;
+    accent-color: #f43f5e;
     margin-bottom: 2px;
+    cursor: pointer;
 }
 
 .checkbox-item span {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     font-weight: 700;
     color: #1f2937;
 }
 
 .checkbox-item small {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: #9ca3af;
 }
 
-/* Buttons Fun & Bubbly */
+/* Buttons */
 button {
     width: 100%;
     padding: 14px;
     border: none;
-    border-radius: 14px;
+    border-radius: 16px;
     font-size: 1.05rem;
     font-weight: 700;
     cursor: pointer;
@@ -135,13 +173,13 @@ button {
 }
 
 button:active {
-    transform: scale(0.97);
+    transform: scale(0.96);
 }
 
 .btn-primary {
     background: linear-gradient(135deg, #f43f5e 0%, #fb7185 100%);
     color: white;
-    box-shadow: 0 6px 20px rgba(244, 63, 94, 0.35);
+    box-shadow: 0 6px 0 #be123c, 0 10px 20px rgba(244, 63, 94, 0.3);
 }
 
 .btn-primary:hover {
@@ -152,9 +190,11 @@ button:active {
     background-color: #f1f5f9;
     color: #475569;
     width: auto;
-    padding: 8px 14px;
+    padding: 8px 12px;
     font-size: 0.85rem;
-    border-radius: 10px;
+    border-radius: 12px;
+    border: 2px solid #e2e8f0;
+    box-shadow: 0 3px 0 #cbd5e1;
 }
 
 .btn-secondary:hover {
@@ -166,36 +206,62 @@ button:active {
     color: #ef4444;
     width: auto;
     padding: 0;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    font-weight: 700;
 }
 
-/* Quiz Screen */
-.quiz-header {
+/* Quiz Screen & Live Score */
+.quiz-top-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 15px;
+    font-size: 0.9rem;
     font-weight: 700;
     color: #64748b;
 }
 
+.live-score-board {
+    display: flex;
+    gap: 6px;
+}
+
+.score-badge {
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.score-badge.correct {
+    background: #ecfdf5;
+    color: #059669;
+    border: 1px solid #10b981;
+}
+
+.score-badge.wrong {
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #ef4444;
+}
+
 .card {
     background: #fffbeb;
-    border: 3px solid #fde047;
-    border-radius: 20px;
-    height: 190px;
+    border: 4px solid #fde047;
+    border-radius: 22px;
+    height: 180px;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 20px;
-    box-shadow: inset 0 -6px 0 rgba(253, 224, 71, 0.4);
+    box-shadow: inset 0 -8px 0 rgba(253, 224, 71, 0.5), 0 8px 0 rgba(253, 224, 71, 0.2);
     transition: all 0.2s;
 }
 
 #hiragana-target {
     font-size: 6rem;
     color: #b45309;
-    text-shadow: 2px 2px 0px #fef08a;
+    text-shadow: 3px 3px 0px #fef08a;
 }
 
 .input-group {
@@ -206,10 +272,10 @@ button:active {
 
 #user-input {
     width: 100%;
-    padding: 16px;
-    font-size: 1.4rem;
+    padding: 14px;
+    font-size: 1.3rem;
     border: 3px solid #cbd5e1;
-    border-radius: 14px;
+    border-radius: 16px;
     text-align: center;
     outline: none;
     background: #f8fafc;
@@ -220,20 +286,20 @@ button:active {
 #user-input:focus {
     border-color: #f43f5e;
     background: #ffffff;
-    box-shadow: 0 0 10px rgba(244, 63, 94, 0.2);
+    box-shadow: 0 0 12px rgba(244, 63, 94, 0.25);
 }
 
-/* Feedback Animations / States */
+/* Feedback Animations */
 .card.correct-flash {
     border-color: #10b981;
     background-color: #ecfdf5;
-    box-shadow: inset 0 -6px 0 rgba(16, 185, 129, 0.3);
+    box-shadow: inset 0 -8px 0 rgba(16, 185, 129, 0.4), 0 8px 0 rgba(16, 185, 129, 0.2);
 }
 
 .card.wrong-flash {
     border-color: #ef4444;
     background-color: #fef2f2;
-    box-shadow: inset 0 -6px 0 rgba(239, 68, 68, 0.3);
+    box-shadow: inset 0 -8px 0 rgba(239, 68, 68, 0.4), 0 8px 0 rgba(239, 68, 68, 0.2);
     animation: shake 0.3s ease-in-out;
 }
 
@@ -247,27 +313,27 @@ button:active {
     text-align: center;
     font-weight: 700;
     height: 24px;
-    font-size: 1rem;
+    font-size: 0.95rem;
 }
 
 /* Result Screen */
 .result-stats {
     text-align: center;
-    margin-bottom: 20px;
-    font-size: 1.15rem;
+    margin-bottom: 18px;
+    font-size: 1.1rem;
     font-weight: 700;
     color: #334155;
 }
 
 .mistake-box {
     background: #fef2f2;
-    border: 2px solid #fecaca;
-    border-radius: 14px;
-    padding: 14px;
-    max-height: 160px;
+    border: 2px dashed #f87171;
+    border-radius: 16px;
+    padding: 12px;
+    max-height: 140px;
     overflow-y: auto;
     margin-bottom: 20px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: #991b1b;
 }
 
