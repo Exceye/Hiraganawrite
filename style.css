@@ -1,0 +1,233 @@
+:root {
+    --bg-color: #f4f7f6;
+    --card-bg: #ffffff;
+    --primary: #4f46e5;
+    --primary-hover: #4338ca;
+    --text-color: #1f2937;
+    --success: #10b981;
+    --error: #ef4444;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    background: var(--card-bg);
+    width: 100%;
+    max-width: 550px;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.screen {
+    display: none;
+}
+
+.screen.active {
+    display: block;
+}
+
+h1 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+p {
+    font-size: 0.95rem;
+    color: #6b7280;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Checkbox Grid Selection */
+.select-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.grid-checkboxes {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    max-height: 220px;
+    overflow-y: auto;
+    margin-bottom: 25px;
+    padding: 5px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+}
+
+.checkbox-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.checkbox-item input {
+    margin-bottom: 4px;
+}
+
+.checkbox-item span {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+/* Buttons */
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+.btn-secondary {
+    background-color: #e5e7eb;
+    color: #374151;
+    width: auto;
+    padding: 8px 12px;
+    font-size: 0.85rem;
+}
+
+.btn-secondary:hover {
+    background-color: #d1d5db;
+}
+
+.btn-text {
+    background: none;
+    color: var(--error);
+    width: auto;
+    padding: 0;
+    font-size: 0.9rem;
+}
+
+/* Quiz Screen */
+.quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.card {
+    background: #f9fafb;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+#hiragana-target {
+    font-size: 5rem;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#user-input {
+    width: 100%;
+    padding: 14px;
+    font-size: 1.2rem;
+    border: 2px solid #d1d5db;
+    border-radius: 8px;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+#user-input:focus {
+    border-color: var(--primary);
+}
+
+/* Feedback Animations / States */
+.card.correct-flash {
+    border-color: var(--success);
+    background-color: rgba(16, 185, 129, 0.1);
+}
+
+.card.wrong-flash {
+    border-color: var(--error);
+    background-color: rgba(239, 68, 68, 0.1);
+    animation: shake 0.3s;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    50% { transform: translateX(6px); }
+    75% { transform: translateX(-6px); }
+    100% { transform: translateX(0); }
+}
+
+#feedback-msg {
+    text-align: center;
+    font-weight: 600;
+    height: 24px;
+    font-size: 0.9rem;
+}
+
+/* Result Screen */
+.result-stats {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
+
+.mistake-box {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 12px;
+    max-height: 150px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+#restart-btn {
+    margin-bottom: 10px;
+}
