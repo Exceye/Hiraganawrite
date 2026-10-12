@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan Hiragana 50 Soal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <!-- HALAMAN 1: PILIH HIRAGANA -->
+        <div id="selection-screen" class="screen active">
+            <h1>Pilih Hiragana untuk Latihan</h1>
+            <p>Pilih karakter yang ingin kamu hafalkan (bisa dicicil bertahap):</p>
+            
+            <div class="select-controls">
+                <button id="select-all" class="btn-secondary">Pilih Semua</button>
+                <button id="deselect-all" class="btn-secondary">Batalkan Semua</button>
+            </div>
+
+            <div id="hiragana-checkboxes" class="grid-checkboxes">
+                <!-- Checkbox akan di-generate otomatis via JavaScript -->
+            </div>
+
+            <button id="start-btn" class="btn-primary">Mulai Latihan (50 Soal)</button>
+        </div>
+
+        <!-- HALAMAN 2: LAYAR LATIHAN -->
+        <div id="quiz-screen" class="screen">
+            <div class="quiz-header">
+                <span id="progress-text">Soal 1 / 50</span>
+                <button id="quit-btn" class="btn-text">Keluar</button>
+            </div>
+
+            <div class="card" id="card-container">
+                <h2 id="hiragana-target">あ</h2>
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="user-input" placeholder="Ketik romaji (mis: a)..." autocomplete="off" autofocus>
+                <span id="feedback-msg"></span>
+            </div>
+        </div>
+
+        <!-- HALAMAN 3: REKAP AKHIR -->
+        <div id="result-screen" class="screen">
+            <h1>Latihan Selesai! 🎉</h1>
+            <div class="result-stats">
+                <p>Skor Benar: <span id="score-correct">0</span> / 50</p>
+                <p>Akurasi: <span id="score-accuracy">0%</span></p>
+            </div>
+            
+            <div id="mistake-container" class="mistake-box">
+                <!-- Daftar salah akan muncul di sini -->
+            </div>
+
+            <button id="restart-btn" class="btn-primary">Lagi dengan Huruf Sama</button>
+            <button id="menu-btn" class="btn-secondary">Ganti Pilihan Huruf</button>
+        </div>
+    </div>
+
+    <!-- Audio untuk Benar & Salah (Menggunakan Web Audio API / Suara Bawaan JS sederhana) -->
+    <script src="script.js"></script>
+</body>
+</html>
