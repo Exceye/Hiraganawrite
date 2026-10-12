@@ -1,4 +1,3 @@
-// Data Dasar Hiragana & Romaji-nya
 const hiraganaData = [
     { char: "あ", romaji: "a" }, { char: "い", romaji: "i" }, { char: "う", romaji: "u" }, { char: "え", romaji: "e" }, { char: "お", romaji: "o" },
     { char: "か", romaji: "ka" }, { char: "き", romaji: "ki" }, { char: "く", romaji: "ku" }, { char: "け", romaji: "ke" }, { char: "こ", romaji: "ko" },
@@ -12,14 +11,13 @@ const hiraganaData = [
     { char: "わ", romaji: "wa" }, { char: "を", romaji: "wo" }, { char: "ん", romaji: "n" }
 ];
 
-// State Aplikasi
 let selectedList = [];
 let quizSession = [];
 let currentIndex = 0;
 let correctCount = 0;
+let wrongCount = 0; // Tambahan hitung salah live
 let mistakeLog = {};
 
-// DOM Elements
 const selectionScreen = document.getElementById('selection-screen');
 const quizScreen = document.getElementById('quiz-screen');
 const resultScreen = document.getElementById('result-screen');
@@ -30,6 +28,8 @@ const deselectAllBtn = document.getElementById('deselect-all');
 const hiraganaTarget = document.getElementById('hiragana-target');
 const userInput = document.getElementById('user-input');
 const progressText = document.getElementById('progress-text');
+const liveCorrect = document.getElementById('live-correct');
+const liveWrong = document.getElementById('live-wrong');
 const feedbackMsg = document.getElementById('feedback-msg');
 const cardContainer = document.getElementById('card-container');
 const quitBtn = document.getElementById('quit-btn');
@@ -38,8 +38,8 @@ const menuBtn = document.getElementById('menu-btn');
 const scoreCorrect = document.getElementById('score-correct');
 const scoreAccuracy = document.getElementById('score-accuracy');
 const mistakeContainer = document.getElementById('mistake-container');
+const speechBubble = document.getElementById('speech-bubble');
 
-// Inisialisasi Checkbox di Halaman Awal
 function initCheckboxes() {
     checkboxContainer.innerHTML = '';
     hiraganaData.forEach((item, index) => {
@@ -54,7 +54,6 @@ function initCheckboxes() {
     });
 }
 
-// Tombol Pilih / Batalkan Semua
 selectAllBtn.addEventListener('click', () => {
     document.querySelectorAll('.checkbox-item input').forEach(cb => cb.checked = true);
 });
@@ -62,7 +61,6 @@ deselectAllBtn.addEventListener('click', () => {
     document.querySelectorAll('.checkbox-item input').forEach(cb => cb.checked = false);
 });
 
-// Sound Effect Sederhana pakai Web Audio API (Tanpa file eksternal)
 function playSound(type) {
     try {
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -72,8 +70,8 @@ function playSound(type) {
         gain.connect(audioCtx.destination);
 
         if (type === 'correct') {
-            osc.frequency.setValueAtTime(587.33, audioCtx.currentTime); // D5
-            osc.frequency.setValueAtTime(880, audioCtx.currentTime + 0.1); // A5
+            osc.frequency.setValueAtTime(587.33, audioCtx.currentTime);
+            osc.frequency.setValueAtTime(880, audioCtx.currentTime + 0.1);
             gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
             gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
             osc.start();
@@ -87,22 +85,18 @@ function playSound(type) {
             osc.start();
             osc.stop(audioCtx.currentTime + 0.3);
         }
-    } catch (e) {
-        // Fallback jika browser membatasi AudioContext
-    }
+    } catch (e) {}
 }
 
-// Mulai Latihan
 startBtn.addEventListener('click', () => {
     const checkedBoxes = document.querySelectorAll('.checkbox-item input:checked');
     selectedList = Array.from(checkedBoxes).map(cb => hiraganaData[cb.value]);
 
     if (selectedList.length === 0) {
-        alert('Pilih minimal 1 huruf Hiragana terlebih dahulu!');
+        alert('Pilih minimal 1 huruf dulu ya! 😊');
         return;
     }
 
-    // Buat 50 soal acak dari pilihan yang ada
     quizSession = [];
     for (let i = 0; i < 50; i++) {
         const randomIndex = Math.floor(Math.random() * selectedList.length);
@@ -111,19 +105,22 @@ startBtn.addEventListener('click', () => {
 
     currentIndex = 0;
     correctCount = 0;
+    wrongCount = 0;
     mistakeLog = {};
 
+    liveCorrect.innerText = '0';
+    liveWrong.innerText = '0';
+
     switchScreen(quizScreen);
+    speechBubble.innerText = "Ganbatte! Ketik romaji yang benar ya!";
     loadQuestion();
 });
 
-// Pindah Screen Helper
 function switchScreen(screen) {
     [selectionScreen, quizScreen, resultScreen].forEach(s => s.classList.remove('active'));
     screen.classList.add('active');
 }
 
-// Muat Soal ke Layar
 function loadQuestion() {
     if (currentIndex >= 50) {
         showResult();
@@ -138,7 +135,6 @@ function loadQuestion() {
     userInput.focus();
 }
 
-// Handle Event Enter pada Input Keyboard
 userInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
         const userAns = userInput.value.trim().toLowerCase();
@@ -147,48 +143,49 @@ userInput.addEventListener('keydown', (e) => {
         if (!userAns) return;
 
         if (userAns === currentData.romaji) {
-            // BENAR
             correctCount++;
+            liveCorrect.innerText = correctCount;
             playSound('correct');
             cardContainer.classList.add('correct-flash');
             feedbackMsg.style.color = 'var(--success)';
-            feedbackMsg.innerText = 'Benar! 👍';
+            feedbackMsg.innerText = 'Sugoi! Benar ✨';
+            speechBubble.innerText = "Hebat! Pertahankan! 💪";
         } else {
-            // SALAH
+            wrongCount++;
+            liveWrong.innerText = wrongCount;
             playSound('wrong');
             cardContainer.classList.add('wrong-flash');
             feedbackMsg.style.color = 'var(--error)';
-            feedbackMsg.innerText = `Salah! Yang benar: ${currentData.romaji}`;
+            feedbackMsg.innerText = `Oishii eh salah, yang benar: ${currentData.romaji}`;
+            speechBubble.innerText = `Ah, kurang tepat! Jawabannya "${currentData.romaji}"`;
             
-            // Catat kesalahan
             if (!mistakeLog[currentData.char]) {
                 mistakeLog[currentData.char] = { romaji: currentData.romaji, count: 0 };
             }
             mistakeLog[currentData.char].count++;
         }
 
-        // Kunci input sementara selama jeda singkat
         userInput.disabled = true;
 
         setTimeout(() => {
             userInput.disabled = false;
             currentIndex++;
             loadQuestion();
-        }, 800); // Jeda 0.8 detik sebelum lanjut otomatis
+        }, 850);
     }
 });
 
-// Tampilkan Halaman Hasil
 function showResult() {
     switchScreen(resultScreen);
     scoreCorrect.innerText = correctCount;
     const accuracy = Math.round((correctCount / 50) * 100);
     scoreAccuracy.innerText = `${accuracy}%`;
+    speechBubble.innerText = `Selesai! Akurasi kamu ${accuracy}%. Keren! 🎉`;
 
-    mistakeContainer.innerHTML = '<strong>Evaluasi Huruf yang Sering Salah:</strong><br>';
+    mistakeContainer.innerHTML = '<strong>📝 Evaluasi Huruf yang Perlu Diingat:</strong><br>';
     const mistakesKeys = Object.keys(mistakeLog);
     if (mistakesKeys.length === 0) {
-        mistakeContainer.innerHTML += '<span style="color: var(--success);">Luar biasa! Tidak ada kesalahan sama sekali! 🌟</span>';
+        mistakeContainer.innerHTML += '<span style="color: var(--success);">Sempurna! Tidak ada salah sama sekali! 🌟</span>';
     } else {
         let listHTML = '<ul style="margin-top: 5px; padding-left: 20px;">';
         for (let char in mistakeLog) {
@@ -199,11 +196,15 @@ function showResult() {
     }
 }
 
-// Tombol Navigasi Keluar/Ulangi
-quitBtn.addEventListener('click', () => switchScreen(selectionScreen));
-menuBtn.addEventListener('click', () => switchScreen(selectionScreen));
+quitBtn.addEventListener('click', () => {
+    switchScreen(selectionScreen);
+    speechBubble.innerText = "Mau latihan bagian mana lagi hari ini?";
+});
+menuBtn.addEventListener('click', () => {
+    switchScreen(selectionScreen);
+    speechBubble.innerText = "Pilih ulang yuk hurufnya!";
+});
 restartBtn.addEventListener('click', () => {
-    // Ulangi dengan list pilihan yang sama
     quizSession = [];
     for (let i = 0; i < 50; i++) {
         const randomIndex = Math.floor(Math.random() * selectedList.length);
@@ -211,10 +212,13 @@ restartBtn.addEventListener('click', () => {
     }
     currentIndex = 0;
     correctCount = 0;
+    wrongCount = 0;
     mistakeLog = {};
+    liveCorrect.innerText = '0';
+    liveWrong.innerText = '0';
     switchScreen(quizScreen);
+    speechBubble.innerText = "Gas lagi ronde baru! Semangat!";
     loadQuestion();
 });
 
-// Jalankan inisialisasi awal saat halaman dibuka
 initCheckboxes();
